@@ -30,8 +30,8 @@ public class ChocolateController {
                 new ChocolateDTO("Hersheys","Cookie and Cream",0.3, 5.80)));
     }
     @GetMapping
-        Iterable<ChocolateDTO> getChocolateDTO(){
-        return chocolates;
+    ResponseEntity<Iterable<ChocolateDTO>> getChocolateDTO(){
+        return ResponseEntity.ok(chocolates);
     }
     
     @GetMapping("/{id}")
@@ -41,14 +41,16 @@ public class ChocolateController {
                 return ResponseEntity.ok(c);
         }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-    }
+        }
 
     @PostMapping
     ResponseEntity<ChocolateDTO> postChocolate(@RequestBody ChocolateDTO chocolateDTO) {
-        long idEncontrado = chocolateDTO.getMaiorId(chocolates);
-        chocolateDTO.setId(idEncontrado);
+        if (chocolateDTO.getId() == null || chocolates.stream().anyMatch(c -> c.getId().equals(chocolateDTO.getId()))) {
+            long maxId = chocolates.stream().mapToLong(ChocolateDTO::getId).max().orElse(0L);
+            chocolateDTO.setId(maxId + 1);
+        }
         chocolates.add(chocolateDTO);
-
+    
         return ResponseEntity.status(HttpStatus.CREATED).body(chocolateDTO);
     }
 
