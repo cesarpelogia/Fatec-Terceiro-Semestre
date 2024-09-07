@@ -30,7 +30,7 @@ public class ChocolateController {
                 new ChocolateDTO("Hersheys","Cookie and Cream",0.3, 5.80)));
     }
     @GetMapping
-    ResponseEntity<Iterable<ChocolateDTO>> getChocolateDTO(){
+    ResponseEntity<Iterable<ChocolateDTO>> getAllChocolateDTO(){
         return ResponseEntity.ok(chocolates);
     }
     
@@ -56,20 +56,25 @@ public class ChocolateController {
 
     @PutMapping("/{id}")
     ResponseEntity<ChocolateDTO> putChocolate(@PathVariable Long id, @RequestBody ChocolateDTO chocolate) {
-            int chocolateIndex = -1;
-            for (ChocolateDTO c : chocolates) {
-                if (c.getId().equals(id)) {
-                    chocolateIndex = chocolates.indexOf(c);
-                    chocolates.set(chocolateIndex, chocolate);
-                }
+        int chocolateIndex = -1;
+        for (int i = 0; i < chocolates.size(); i++) {
+            if (chocolates.get(i).getId().equals(id)) {
+                chocolateIndex = i;
+                chocolate.setId(id);
+                chocolates.set(chocolateIndex, chocolate);
+                return ResponseEntity.ok(chocolate);
             }
-            return (chocolateIndex == -1) ?
-                ResponseEntity.status(HttpStatus.CREATED).body(chocolate) :
-                ResponseEntity.ok(chocolate);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     @DeleteMapping("/{id}")
-    void deleteChocolate(@PathVariable Long id) {
-        chocolates.removeIf(c -> c.getId() == id);
+    ResponseEntity<String> deleteChocolate(@PathVariable Long id) {
+        boolean removed = chocolates.removeIf(c -> c.getId().equals(id));
+        if (removed) {
+            return ResponseEntity.ok("Elemento " + id + " removido");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Elemento " + id + " não encontrado");
+        }
     }
 }
