@@ -5,25 +5,25 @@ public class Student {
     private String name;
     private int studentId;
     private String course;
-    private double exam1;
-    private double exam2;
-    private double exam3;
-    private double exam4;
+    private Exam[] exams;
 
-    public Student() {
-        return;
-    }
-
-    public Student(String name, int studentId, String course, double exam1, double exam2, double exam3, double exam4) {
+    public Student(String name, int studentId, String course) {
         this.name = name;
         this.studentId = studentId;
         this.course = course;
-        this.exam1 = exam1;
-        this.exam2 = exam2;
-        this.exam3 = exam3;
-        this.exam4 = exam4;
+        this.exams = new Exam[4];
     }
 
+    public boolean addExam(Exam exam){
+        for (int i = 0; i < exams.length; i++){
+            if (exams[i] == null){
+                exams[i] = exam;
+                return true;
+            }
+        }
+        return false;
+    }
+    
     // Getters
     public String getName() {
         return name;
@@ -36,21 +36,9 @@ public class Student {
     public String getCourse() {
         return course;
     }
-
-    public double getExam1() {
-        return exam1;
-    }
-
-    public double getExam2() {
-        return exam2;
-    }
-
-    public double getExam3() {
-        return exam3;
-    }
-
-    public double getExam4() {
-        return exam4;
+    
+    public Exam[] getExams() {
+        return exams;
     }
 
     // Setters
@@ -64,21 +52,5 @@ public class Student {
 
     public void setCourse(String course) {
         this.course = course;
-    }
-
-    public void setExam1(double exam1) {
-        this.exam1 = exam1;
-    }
-
-    public void setExam2(double exam2) {
-        this.exam2 = exam2;
-    }
-
-    public void setExam3(double exam3) {
-        this.exam3 = exam3;
-    }
-
-    public void setExam4(double exam4) {
-        this.exam4 = exam4;
     }
 }
