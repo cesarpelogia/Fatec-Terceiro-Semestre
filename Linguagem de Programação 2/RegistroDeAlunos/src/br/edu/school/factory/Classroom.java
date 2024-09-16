@@ -1,28 +1,29 @@
-package br.edu.school.model;
+package br.edu.school.factory;
 
 public class Classroom {
 
-    private String className;
+    public static final int length = 0;
+    private Course course;
     private Student[] students;
 
-    public Classroom(String className, int capacity) {
-        this.className = className;
+    public Classroom(Course course, int capacity) {
+        this.course = course;
         this.students = new Student[capacity];
     }
 
-    public void setClassName(String className){
-        this.className = className;
+    public void setClassName(Course course){
+        this.course = course;
     }
     
-    public String getClassName(){
-        return className;
+    public Course getClassName(){
+        return course;
     }
 
-    public Student addStudent(Student student) {
-        for (int i = 0; i < students.length; i++){
-            if (students[i] == null){
+    public boolean addStudent(Student student) {
+        for (int i = 0; i < students.length; i++) {
+            if (students[i] == null) {
                 students[i] = student;
-                System.out.println("Aluno "+ students[i].getName() + " adicionado com sucesso");
+                return true;
             }
         }
         throw new IllegalStateException("Não foi possível adicionar o aluno: a sala de aula está cheia.");
@@ -30,9 +31,10 @@ public class Classroom {
     
     public void updateStudent(Student updateStudent) {
         for (int i = 0; i < students.length; i++) {
-            if (students[i].getStudentId() == updateStudent.getStudentId()) {
+            if (students[i] != null && students[i].getStudentId() == updateStudent.getStudentId()) {
                 students[i] = updateStudent;
                 System.out.println("Aluno " + updateStudent.getName() + " atualizado com sucesso.");
+                return;
             }
         }
         throw new IllegalStateException("Não foi encontrado o aluno");
@@ -59,6 +61,21 @@ public class Classroom {
     public boolean removeStudentByName(String name) {
         for (int i = 0; i < students.length; i++) {
             if (students[i] != null && students[i].getName().equals(name)) {
+                // Desloca os alunos à esquerda
+                for (int j = i; j < students.length - 1; j++) {
+                    students[j] = students[j + 1];
+                }
+                students[students.length - 1] = null;
+                System.out.println("Aluno removido com sucesso!");
+                return true;
+            }
+        }
+        throw new IllegalStateException("Não foi possível remover o aluno.");
+    }
+    
+    public boolean removeStudentById(int studentId) {
+        for (int i = 0; i < students.length; i++) {
+            if (students[i] != null && students[i].getStudentId() == studentId) {
                 for (int j = i; j < students.length - 1; j++) {
                     students[j] = students[j + 1];
                 }
@@ -85,21 +102,7 @@ public class Classroom {
         return false;
     }
 
-    public boolean removeStudentById(int studentId) {
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] != null && students[i].getStudentId() == studentId) {
-                for (int j = i; j < students.length - 1; j++) {
-                    students[j] = students[j + 1];
-                }
-                students[students.length - 1] = null;
-                System.out.println("Aluno removido com sucesso!");
-                return true;
-            }
-        }
-        throw new IllegalStateException("Não foi possível remover o aluno.");
-    }
-
-    public int countNumberOfStudents(Classroom className){
+    public int countNumberOfStudents(){
         int currenteNumberOfStudents = 0;
         for(int i = 0; i > students.length; i++){
             currenteNumberOfStudents++;

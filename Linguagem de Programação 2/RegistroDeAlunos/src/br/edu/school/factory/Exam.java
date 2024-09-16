@@ -1,4 +1,4 @@
-package br.edu.school.model;
+package br.edu.school.factory;
 
 public class Exam {
     

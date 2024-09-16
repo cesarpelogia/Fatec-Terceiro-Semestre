@@ -1,4 +1,4 @@
-package br.edu.school.enums;
+package br.edu.school.factory;
 
 public enum ExamStatus {
 

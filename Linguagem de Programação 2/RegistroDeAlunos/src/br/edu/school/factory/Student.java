@@ -1,13 +1,13 @@
-package br.edu.school.model;
+package br.edu.school.factory;
 
 public class Student {
     
     private String name;
     private int studentId;
-    private String course;
+    private Course course;
     private Exam[] exams;
 
-    public Student(String name, int studentId, String course) {
+    public Student(String name, int studentId, Course course) {
         this.name = name;
         this.studentId = studentId;
         this.course = course;
@@ -33,7 +33,7 @@ public class Student {
         return studentId;
     }
 
-    public String getCourse() {
+    public Course getCourse() {
         return course;
     }
     
@@ -50,7 +50,7 @@ public class Student {
         this.studentId = studentId;
     }
 
-    public void setCourse(String course) {
+    public void setCourse(Course course) {
         this.course = course;
     }
 }
