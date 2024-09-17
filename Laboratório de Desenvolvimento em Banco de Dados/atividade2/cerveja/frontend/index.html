@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="styles.css">
@@ -7,48 +8,8 @@
 <title>Exemplo com htmx</title>
 <script src="https://unpkg.com/htmx.org@1.7.0"></script>
 </head>
+
 <body>
-<h1>Lista de Dados</h1>
-<button  hx-get="http://localhost:8080/coffees" hx-target="#tabela" hx-swap="innerHTML">Carregar Tabela</button>
-<div id="tabela">
-<!-- A tabela será carregada aqui -->
-</div>
-<script id="template" type="text/x-handlebars-template">
-<table border=".5">
-<thead>
-<tr>
-<th>ID</th>
-<th>Café</th>
-</tr>
-</thead>
-               {{/each}}
-<td>{{id}}</td>
-<td>{{name}}</td>
-</tbody>
-</table>
-<tbody>
-               {{#each dados}}
-</tr>
-<tr>
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-<script>
-       document.addEventListener('htmx:beforeSwap', function(event) {
-           console.log("event:", event.detail.target.id)
-           if (event.detail.target.id === 'tabela') {
-               console.log(event.detail.requestConfig)
-               fetch(event.detail.requestConfig.path)
-                   .then(response => response.json())
-                   .then(data => {
-                       // Preencher a tabela usando Handlebars
-                       const templateScript = document.getElementById('template').innerHTML;
-                       const template = Handlebars.compile(templateScript);
-                       const html = template({ dados: data });
-                       document.getElementById('tabela').innerHTML = html;
-                   });
-               event.detail.shouldSwap = false; // Impede que htmx faça o swap automático
-           }
-       });
-</script>
+
 </body>
 </html>
