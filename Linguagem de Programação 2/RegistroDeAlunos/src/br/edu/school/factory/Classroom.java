@@ -11,10 +11,10 @@ public class Classroom implements StudentOperations {
     }
 
     @Override
-    public int numberOfStudents(){
+    public int numberOfStudents() {
         int counter = 0;
-        for (Student student : students){
-            if (student != null){
+        for (Student student : students) {
+            if (student != null) {
                 counter++;
             }
         }
@@ -33,14 +33,18 @@ public class Classroom implements StudentOperations {
 
     @Override
     public void addStudent(Student student) {
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] == null) {
-                students[i] = student;
-                System.out.println("Aluno adicionado com sucesso!");
-                return;
+        if (validateStudent(student)) {
+            for (int i = 0; i < students.length; i++) {
+                if (students[i] == null) {
+                    students[i] = student;
+                    System.out.println("Aluno " + student.getName() + " adicionado com sucesso!");
+                    return;
+                }
             }
+        } else {
+            System.out.println("Aluno com matrícula " + student.getStudentId() + " já existe.");
         }
-        System.out.println("A sala de aula está cheia.");
+        System.out.println("A sala de aula está cheia ou o aluno já foi adicionado.");
     }
 
     @Override
@@ -64,11 +68,11 @@ public class Classroom implements StudentOperations {
         System.out.println("Aluno não encontrado");
         return null;
     }
-    
+
     @Override
     public Student getStudentByName(String name) {
-        for (Student student : students){
-            if(student != null && student.getName() == name){
+        for (Student student : students) {
+            if (student != null && student.getName().equals(name)) {
                 return student;
             }
         }
@@ -116,6 +120,30 @@ public class Classroom implements StudentOperations {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean removeExam(Student student, int examIndex) {
+        if (examIndex < 0 || examIndex >= student.getExams().length || student.getExams()[examIndex] == null) {
+            System.out.println("Índice inválido ou exame não encontrado.");
+            return false;
+        }
+        student.getExams()[examIndex] = null;
+        System.out.println("Exame removido com sucesso!");
+        return true;
+    }
+
+    @Override
+    public Exam[] getExams(Student student) {
+        return student.getExams();
+    }
+
+    public void addExam(Student student, Exam exam) {
+        if (student.addExamStudent(exam)) {
+            System.out.println("Exame adicionado com sucesso.");
+        } else {
+            System.out.println("Não foi possível adicionar o exame. O array de exames está cheio.");
+        }
     }
 
 }

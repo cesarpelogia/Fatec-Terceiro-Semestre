@@ -21,5 +21,9 @@ public interface StudentOperations {
     int capacityOfStudents();
 
     Course getCourse();
+    
+    boolean removeExam(Student student, int examIndex);
+
+    Exam[] getExams(Student student);
 
 }

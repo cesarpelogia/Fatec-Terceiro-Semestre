@@ -14,16 +14,6 @@ public class Student  {
         this.course = course;
         this.exams = new Exam[4];
     }
-
-    public boolean addExam(Exam exam){
-        for (int i = 0; i < exams.length; i++){
-            if (exams[i] == null){
-                exams[i] = exam;
-                return true;
-            }
-        }
-        return false;
-    }
     
     // Getters
     public String getName() {
@@ -53,6 +43,16 @@ public class Student  {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public boolean addExamStudent(Exam exam) {
+        for (int i = 0; i < exams.length; i++) {
+            if (exams[i] == null) {
+                exams[i] = exam;
+                return true;
+            }
+        }
+        return false; // Retorna false se não houver espaço no array
     }
     
 }
