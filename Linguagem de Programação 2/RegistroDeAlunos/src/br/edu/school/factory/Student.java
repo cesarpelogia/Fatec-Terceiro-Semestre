@@ -1,12 +1,13 @@
 package br.edu.school.factory;
 
-public class Student {
+public class Student  {
+
     
     private String name;
     private int studentId;
     private Course course;
     private Exam[] exams;
-
+    
     public Student(String name, int studentId, Course course) {
         this.name = name;
         this.studentId = studentId;
@@ -28,7 +29,7 @@ public class Student {
     public String getName() {
         return name;
     }
-
+    
     public int getStudentId() {
         return studentId;
     }
@@ -53,4 +54,5 @@ public class Student {
     public void setCourse(Course course) {
         this.course = course;
     }
+    
 }
