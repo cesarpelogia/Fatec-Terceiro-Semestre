@@ -21,6 +21,7 @@ public class StackWithoutHead {
         }
         Node nodeToRemove = top;
         top = top.getNext();
+        System.out.println("\n");
         return nodeToRemove;
     }
 

@@ -13,6 +13,9 @@ public class App {
 
         stackWithoutHead.printStack();
 
+        stackWithoutHead.addNode(2);
+        stackWithoutHead.addNode(3);
 
+        stackWithoutHead.printStack();
     }
 }
