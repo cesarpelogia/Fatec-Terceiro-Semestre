@@ -1,24 +1,43 @@
-// Crie a classe Carta, que possui um nome e um naipe. Crie os métodos GET e SET para os atributos
 public class Carta {
-    private String nome;
-    private String naipe;
+    private Valor valor;
+    private Naipe naipe;
 
-    public Carta(String nome, String naipe) {
-        this.nome = nome;
+    public enum Valor {
+        A, DOIS, TRES, QUATRO, CINCO, SEIS, SETE, OITO, NOVE, DEZ, J, Q, K, CORINGA;
+    }
+    
+    public enum Naipe {
+        OUROS, PAUS, ESPADAS, COPAS, CORINGA;
+    }
+
+    
+    public Carta(Valor valor, Naipe naipe) {
+        this.valor = valor;
         this.naipe = naipe;
     }
 
-    public String getNome() {return nome;}
-    public void setNome(String nome) {this.nome = nome;}
-    public String getNaipe() {return naipe;}
-    public void setNaipe(String naipe) {this.naipe = naipe;}
+    public Valor getValor() {
+        return valor;
+    }
+
+    public void setValor(Valor valor) {
+        this.valor = valor;
+    }
+
+    public Naipe getNaipe() {
+        return naipe;
+    }
+
+    public void setNaipe(Naipe naipe) {
+        this.naipe = naipe;
+    }
 
     @Override
     public String toString() {
-        if (nome.equals("coringa")) {
-            return nome;
+        if (valor.name().equals("coringa")) {
+            return valor.name();
         } else {
-            return nome + " de " + naipe;
+            return valor.name() + " de " + naipe.name();
         }
     }
 }
