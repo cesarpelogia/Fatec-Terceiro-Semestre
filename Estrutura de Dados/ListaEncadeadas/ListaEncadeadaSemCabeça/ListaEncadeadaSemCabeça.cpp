@@ -82,6 +82,7 @@ void addNode(Node** head, int value) {
             cout << "Nó na posição 0 (cabeça) deletado." << endl;
             return;
         }
+        
 
         Node* current = *head;
         Node* previous = nullptr;
