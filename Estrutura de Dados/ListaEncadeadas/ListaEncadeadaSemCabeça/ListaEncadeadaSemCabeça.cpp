@@ -10,63 +10,61 @@ struct Node {
 
 struct LinkedListWithoutHead {
 
-void addNode(Node** head, int value) {
+    void addNode(Node** head, int value) {
+        if (*head == nullptr) {
+            *head = new Node(value);
+            cout << "Nó adicionado na posição 0, com valor: " << value << endl;
+            return;
+        }
 
-    if (*head == nullptr) {
-        *head = new Node(value);
-        cout << "Nó adicionado na posição 0, com valor: " << value << endl;
-        return;
+        Node* temp = *head;
+        int position = 0;
+
+        while (temp->next != nullptr) {
+            temp = temp->next;
+            position++;
+        }
+
+        temp->next = new Node(value);
+        cout << "Nó adicionado na posição: " << (position + 1) << ", com valor: " << value << endl;
     }
-
-    Node* temp = *head;
-    int position = 0;
-
-    while (temp->next != nullptr) {
-        temp = temp->next;
-        position++;
-    }
-
-    temp->next = new Node(value);
-    cout << "Nó adicionado na posição: " << (position + 1) << ", com valor: " << value << endl;
-}
-
 
     void updateNodeByPosition(Node** head, int value, int position) {
-    if (*head == nullptr) {
-        cout << "Lista está vazia." << endl;
-        return;
-    }
+        if (*head == nullptr) {
+            cout << "Lista está vazia." << endl;
+            return;
+        }
 
-    Node* current = *head;
-    Node* previous = nullptr;
-    int counter = 0;
+        Node* current = *head;
+        Node* previous = nullptr;
+        int counter = 0;
 
-    if (position == 0) {
+        if (position == 0) {
+            Node* newNode = new Node(value);
+            newNode->next = (*head)->next;
+            delete *head;
+            *head = newNode;
+            cout << "Nó de valor " << value << " na posição 0 substituído com sucesso." << endl;
+            return;
+        }
+
+        while (current != nullptr && counter != position) {
+            previous = current;
+            current = current->next;
+            counter++;
+        }
+
+        if (current == nullptr) {
+            cout << "Posição inválida. A lista é menor do que " << position << " nós." << endl;
+            return;
+        }
+
         Node* newNode = new Node(value);
-        newNode->next = (*head)->next;
-        delete head;
-        *head = newNode;
-        cout << "Nó de valor " << value << " na posição 0 substituído com sucesso." << endl;
-        return;
-    }
+        newNode->next = current->next;
+        previous->next = newNode;
+        delete current;
 
-    while (current != nullptr && counter != position) {
-        previous = current;
-        current = current->next;
-        counter++;
-    }
-
-    if (current == nullptr) {
-        cout << "Posição inválida. A lista é menor do que " << position << " nós." << endl;
-        return;
-    }
-
-    Node* newNode = new Node(value);
-    newNode->next = current->next;
-    previous->next = newNode;
-    delete current;
-
-    cout << "Nó de valor " << value << " na posição " << position << " substituído com sucesso." << endl;
+        cout << "Nó de valor " << value << " na posição " << position << " substituído com sucesso." << endl;
     }
 
     void deleteNodeByPosition(Node** head, int position) {
@@ -82,7 +80,6 @@ void addNode(Node** head, int value) {
             cout << "Nó na posição 0 (cabeça) deletado." << endl;
             return;
         }
-        
 
         Node* current = *head;
         Node* previous = nullptr;
@@ -104,14 +101,13 @@ void addNode(Node** head, int value) {
     }
 
     void printList(Node** head) {
-        if (head == nullptr) {
+        if (*head == nullptr) {
             cout << "A lista está vazia, 0 posições" << endl;
             return;
         }
 
         Node* current = *head;
         int counter = 0;
-
 
         while (current != nullptr) {
             cout << "Posição: " << counter << " com valor: " << current->value << endl;
@@ -121,7 +117,6 @@ void addNode(Node** head, int value) {
 
         cout << "A lista possui " << counter << " posições" << endl;
     }
-
 };
 
 int main() {
@@ -132,26 +127,26 @@ int main() {
     lst.addNode(&head, 11);
     lst.addNode(&head, 12);
 
-    cout << "" << endl;
+    cout << endl;
 
     lst.printList(&head);
 
-    cout << "" << endl;
+    cout << endl;
 
     lst.updateNodeByPosition(&head, 0, 0);
     lst.updateNodeByPosition(&head, 1, 1);
     lst.updateNodeByPosition(&head, 2, 2);
 
-    cout << "" << endl;
+    cout << endl;
 
     lst.printList(&head);
 
-    cout << "" << endl;
+    cout << endl;
 
     lst.deleteNodeByPosition(&head, 2);
     lst.deleteNodeByPosition(&head, 1);
 
-    cout << "" << endl;
+    cout << endl;
 
     lst.printList(&head);
 
