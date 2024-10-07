@@ -12,7 +12,7 @@ struct QueueWithoutHead {
 
         Node* newNode = new Node{value, nullptr};
 
-        if(*top == nullptr || *tail == nullptr){
+        if(*top == nullptr){
             *top = newNode;
             *tail = newNode;
         } else {
@@ -51,6 +51,7 @@ struct QueueWithoutHead {
             counter++;
         }
     }
+    
 };
 
 int main(){
