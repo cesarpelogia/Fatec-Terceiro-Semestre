@@ -42,14 +42,16 @@ struct StackWithHead {
         cout << "Adicionado nó no topo da pilha com valor: " << value << "." << endl;
     }
 
-    void removeNode(){
+    Node* removeNode(){
         if(top == nullptr){
             cout << "Pilha vazia." << endl;
         }
 
         Node* nodeToRemove = top;
         top = top->next;
-        delete nodeToRemove;
+
+        return nodeToRemove;
+        
         cout << "Nó removido do topo da pilha." << endl;
     }
     
@@ -79,7 +81,8 @@ int main(){
 
     cout << "" << endl;
 
-    stack.removeNode();// Remove o nó do topo (30)
+    Node* node1 = stack.removeNode();// Remove o nó do topo (30)
+    cout << "Nó removido: " << node1->value << endl;
 
     cout << "" << endl;
 
@@ -91,8 +94,11 @@ int main(){
 
     cout << "" << endl;
     
-    stack.removeNode();// Remove o nó do topo (20)
-    stack.removeNode();// Remove o nó do topo (10)
+    Node* node2 = stack.removeNode();// Remove o nó do topo (20)
+    cout << "Nó removido: " << node2->value << endl;
+    
+    Node* node3 = stack.removeNode();// Remove o nó do topo (10)
+    cout << "Nó removido: " << node3->value << endl;
 
     cout << "" << endl;
 
