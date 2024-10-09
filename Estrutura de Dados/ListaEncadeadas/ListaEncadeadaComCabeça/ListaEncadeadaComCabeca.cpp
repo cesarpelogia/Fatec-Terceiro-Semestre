@@ -33,49 +33,49 @@ struct LinkedListWithHead {
         cout << "Nó de valor: " << value << " inserido na posição " << position << endl;
     }
 
-void updateNodeByPosition(int value, int position) {
-    if (head == nullptr) {
-        cout << "Lista está vazia." << endl;
-        return;
-    }
+    void updateNodeByPosition(int value, int position) {
+        if (head == nullptr) {
+            cout << "Lista está vazia." << endl;
+            return;
+        }
 
-    Node* current = head;
-    Node* previous = nullptr;
-    int counter = 0;
+        Node* current = head;
+        Node* previous = nullptr;
+        int counter = 0;
 
-    if (position == 0) {
+        if (position == 0) {
+            Node* newNode = new Node(value);
+            newNode->next = head->next;
+            delete head;
+            head = newNode;
+            cout << "Nó de valor " << value << " na posição 0 substituído com sucesso." << endl;
+            return;
+        }
+
+        while (current != nullptr && counter != position) {
+            previous = current;
+            current = current->next;
+            counter++;
+        }
+
+        if (current == nullptr) {
+            cout << "Posição inválida. A lista é menor do que " << position << " nós." << endl;
+            return;
+        }
+
         Node* newNode = new Node(value);
-        newNode->next = head->next;
-        delete head;
-        head = newNode;
-        cout << "Nó de valor " << value << " na posição 0 substituído com sucesso." << endl;
-        return;
+        newNode->next = current->next;
+        previous->next = newNode;
+        delete current;
+
+        cout << "Nó de valor " << value << " na posição " << position << " substituído com sucesso." << endl;
     }
 
-    while (current != nullptr && counter != position) {
-        previous = current;
-        current = current->next;
-        counter++;
-    }
 
-    if (current == nullptr) {
-        cout << "Posição inválida. A lista é menor do que " << position << " nós." << endl;
-        return;
-    }
-
-    Node* newNode = new Node(value);
-    newNode->next = current->next;
-    previous->next = newNode;
-    delete current;
-
-    cout << "Nó de valor " << value << " na posição " << position << " substituído com sucesso." << endl;
-}
-
-
-    void deleteNodeByPosition(int position) {
+    Node* deleteNodeByPosition(int position) {
         if (head == nullptr) {
             cout << "Impossível deletar nó de uma lista vazia." << endl;
-            return;
+            return nullptr;
         }
 
         if (position == 0) {
@@ -83,7 +83,7 @@ void updateNodeByPosition(int value, int position) {
             head = head->next;
             delete temp;
             cout << "Nó na posição 0 (cabeça) deletado." << endl;
-            return;
+            return temp;
         }
 
         Node* current = head;
@@ -101,7 +101,7 @@ void updateNodeByPosition(int value, int position) {
         } else {
             previous->next = current->next;
             cout << "Nó deletado na posição " << counter << " com valor: " << current->value << endl;
-            delete current;
+            return current;
         }
     }
 
@@ -124,9 +124,6 @@ void updateNodeByPosition(int value, int position) {
         cout << "A lista possui " << counter << " posições" << endl;
     }
 };
-
-
-
 
 int main() {
 
@@ -152,8 +149,12 @@ int main() {
 
     cout << "" << endl;
 
-    lst.deleteNodeByPosition(1);
-    lst.deleteNodeByPosition(1);
+    Node* node1 = lst.deleteNodeByPosition(1);
+    cout << "Nó removido: " << node1->value << endl;
+
+    Node* node2 = lst.deleteNodeByPosition(1);
+    cout << "Nó removido: " << node2->value << endl;
+
 
     cout << "" << endl;
 

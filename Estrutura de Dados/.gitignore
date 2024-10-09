@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 .vscode/
 bin/
 lib/
+=======
+# Ignorar a pasta de configurações do Visual Studio Code
+.vscode/
+>>>>>>> 65c4da4fa846cb24f8138b1029d7066bdcb5c05f

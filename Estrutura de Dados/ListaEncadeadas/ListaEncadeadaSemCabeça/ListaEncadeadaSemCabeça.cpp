@@ -67,10 +67,10 @@ struct LinkedListWithoutHead {
         cout << "Nó de valor " << value << " na posição " << position << " substituído com sucesso." << endl;
     }
 
-    void deleteNodeByPosition(Node** head, int position) {
+    Node* deleteNodeByPosition(Node** head, int position) {
         if (*head == nullptr) {
             cout << "Impossível deletar nó de uma lista vazia." << endl;
-            return;
+            return nullptr;
         }
 
         if (position == 0) {
@@ -78,7 +78,7 @@ struct LinkedListWithoutHead {
             *head = (*head)->next;
             delete temp;
             cout << "Nó na posição 0 (cabeça) deletado." << endl;
-            return;
+            return temp;
         }
 
         Node* current = *head;
@@ -96,7 +96,7 @@ struct LinkedListWithoutHead {
         } else {
             previous->next = current->next;
             cout << "Nó deletado na posição " << counter << " com valor: " << current->value << endl;
-            delete current;
+            return current;
         }
     }
 
@@ -133,7 +133,7 @@ int main() {
 
     cout << endl;
 
-    lst.updateNodeByPosition(&head, 0, 0);
+    lst.updateNodeByPosition(&head, 50, 0);
     lst.updateNodeByPosition(&head, 1, 1);
     lst.updateNodeByPosition(&head, 2, 2);
 
@@ -143,8 +143,11 @@ int main() {
 
     cout << endl;
 
-    lst.deleteNodeByPosition(&head, 2);
-    lst.deleteNodeByPosition(&head, 1);
+    Node* node1 = lst.deleteNodeByPosition(&head, 2);
+    cout << "Nó removido: " << node1 << endl;
+
+    Node* node2 = lst.deleteNodeByPosition(&head, 1);
+    cout << "Nó removido: " << node2 << endl;
 
     cout << endl;
 

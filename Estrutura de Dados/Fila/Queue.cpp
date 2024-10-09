@@ -21,20 +21,19 @@ struct QueueWithoutHead {
         }
     }
 
-    void deleteNode(Node **top, Node **tail) {
+    Node* deleteNode(Node **top, Node **tail) {
         if (*top == nullptr) {
             cout << "Fila vazia." << endl;
-            return;
+            return nullptr;
         }
-
+    
         Node* nodeToRemove = *top;
         *top = (*top)->next;
-
+    
         if (*top == nullptr) {
             *tail = nullptr;
         }
-
-        delete nodeToRemove;
+        return nodeToRemove;
     }
 
     bool isEmpty(Node* top) {
@@ -72,7 +71,8 @@ int main(){
 
     cout << "----------" << endl;
 
-    queue.deleteNode(&top, &tail);
+    Node* node = queue.deleteNode(&top, &tail);
+    cout << "Nó removido: " << node->value << endl;
 
     cout << "----------" << endl;
 
@@ -85,5 +85,6 @@ int main(){
     cout << "----------" << endl;
 
     queue.printQueue(&top);
+
     return 0;
 }
