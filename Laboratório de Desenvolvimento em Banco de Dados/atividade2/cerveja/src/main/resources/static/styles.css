@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #333;
+}
+
+/* Estilo para o título */
+h1 {
+    text-align: center;
+    color: #fff;
+    margin-top: 20px;
+}
+
+/* Estilo para a tabela */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
