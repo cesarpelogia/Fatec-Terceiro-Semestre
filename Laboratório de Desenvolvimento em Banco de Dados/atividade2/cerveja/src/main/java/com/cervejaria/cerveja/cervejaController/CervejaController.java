@@ -1,8 +1,8 @@
 package com.cervejaria.cerveja.cervejaController;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,63 +14,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cervejaria.cerveja.domain.CervejaDTO;
+import com.cervejaria.cerveja.Service.CervejaService;
+import com.cervejaria.cerveja.entity.Cerveja;
 
 @RestController
 @RequestMapping("/cerveja")
 public class CervejaController {
 
-    public List<CervejaDTO> cervejas = new ArrayList<>();
+    @Autowired
+    private CervejaService cervejaService;
 
-    public CervejaController(){
-    cervejas.addAll(List.of(
-        new CervejaDTO(0, "Skol", "Pilsen", 500, 4.5),
-        new CervejaDTO(1, "Brahma", "Chopp", 350, 3.8),
-        new CervejaDTO(2, "Antarctica", "Original", 600, 5.0),
-        new CervejaDTO(3, "Bohemia", "Puro Malte", 355, 4.2)
-    ));
-    }
-    
     @GetMapping
-        Iterable<CervejaDTO> getCervejas(){
-            return cervejas;
-        }
+    public List<Cerveja> getCervejas(){
+        return cervejaService.findAll();
+    }
 
     @GetMapping("/{id}")
-    ResponseEntity<CervejaDTO> getCervejaByID(@PathVariable Long id){
-        for (CervejaDTO c : cervejas){
-            if (id.equals(c.getId())){
-                return ResponseEntity.ok(c);
-                }
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    ResponseEntity<Cerveja> getCervejaByID(@PathVariable Long id){
+        return cervejaService.findById(id)
+                             .map(cerveja -> ResponseEntity.ok(cerveja))
+                             .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
         }
 
     @PostMapping
-    ResponseEntity<CervejaDTO> postCerveja(@RequestBody CervejaDTO cervejaDTO){
-        long idEncontrado = cervejaDTO.getMaiorId(cervejas);
-        cervejaDTO.setid(idEncontrado);
-        cervejas.add(cervejaDTO);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(cervejaDTO);
+    ResponseEntity<Cerveja> postCerveja(@RequestBody Cerveja cerveja){
+        Cerveja savedCerveja = cervejaService.save(cerveja);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCerveja);
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<CervejaDTO> putCerveja(@PathVariable Long id, @RequestBody CervejaDTO cerveja) {
-            int cervejaIndex = -1;
-            for (CervejaDTO c : cervejas) {
-                if (Long.valueOf(c.getId()).equals(id)) {
-                    cervejaIndex = cervejas.indexOf(c);
-                    cervejas.set(cervejaIndex, cerveja);
-                }
-            } return (cervejaIndex == -1) ?
-                ResponseEntity.status(HttpStatus.CREATED).body(cerveja) :
-                ResponseEntity.ok(cerveja);
+    public ResponseEntity<Cerveja> putCerveja(@PathVariable Long id, @RequestBody Cerveja cerveja) {
+        return cervejaService.update(id, cerveja)
+                .map(updatedCerveja -> ResponseEntity.ok(updatedCerveja))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     @DeleteMapping("/{id}")
-    void deleteCerveja(@PathVariable Long id) {
-        cervejas.removeIf(c -> c.getId() == id);
+    public ResponseEntity<Void> deleteCerveja(@PathVariable Long id) {
+        if (cervejaService.delete(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
 
