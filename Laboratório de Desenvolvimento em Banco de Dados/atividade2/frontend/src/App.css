@@ -1,0 +1,209 @@
+/* App.css */
+
+/* Geral */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #1c1c1c; /* Cor escura de fundo */
+  color: #fff; /* Cor do texto */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Cabeçalho */
+h1.title {
+  font-size: 2.5rem;
+  color: #f5a623; /* Cor amarela da Heisenberg */
+  margin-top: 20px;
+}
+
+/* Container principal */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+}
+
+/* Tabela */
+.table {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 30px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th, .table td {
+  padding: 12px;
+  border: 1px solid #333;
+}
+
+.table th {
+  background-color: #222;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #2d2d2d;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #3c3c3c;
+}
+
+.table th, .table td {
+  color: #f5f5f5;
+}
+
+button {
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 10px 15px;
+  border: none;
+  color: white;
+  background-color: #f5a623; /* Cor amarela */
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #d88f1e; /* Cor mais escura ao passar o mouse */
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Estilo para o botão de Adicionar */
+.add-button {
+  background-color: #4caf50; /* Cor verde para adicionar */
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+/* Estilo para o botão de Editar */
+.edit-button {
+  background-color: #2196f3; /* Cor azul para editar */
+}
+
+.edit-button:hover {
+  background-color: #1976d2;
+}
+
+/* Estilo para o botão de Excluir */
+.delete-button {
+  background-color: #f44336; /* Cor vermelha para excluir */
+}
+
+.delete-button:hover {
+  background-color: #e53935;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal-container h2 {
+  color: #f5a623; /* Cor amarela para o título do modal */
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+  font-size: 1rem;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #555;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #444;
+  color: #fff;
+}
+
+input:focus {
+  outline: none;
+  border-color: #f5a623; /* Foco na borda amarela */
+}
+
+button.save-button {
+  background-color: #4caf50; /* Cor verde para salvar */
+  width: 100%;
+  padding: 12px;
+}
+
+button.cancel-button {
+  background-color: #f44336; /* Cor vermelha para cancelar */
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+button.save-button:hover {
+  background-color: #45a049;
+}
+
+button.cancel-button:hover {
+  background-color: #e53935;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.edit-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+.delete-button:hover {
+  background-color: #e53935;
+}
+
