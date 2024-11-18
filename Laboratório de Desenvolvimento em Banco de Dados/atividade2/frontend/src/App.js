@@ -16,6 +16,9 @@ const App = () => {
     const getCerveja = async () => {
       try {
         const response = await fetch('http://localhost:8080/cerveja');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         const data = await response.json();
         setData(data);
       } catch (error) {
@@ -46,10 +49,8 @@ const App = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Se o item já existe, faz a atualização, caso contrário faz o cadastro
+  
     if (modalData.id) {
-      // PUT request to update the beer
       const updatedBeer = {
         ...modalData,
         qnt: parseInt(modalData.qnt),
@@ -61,11 +62,17 @@ const App = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(response => response.json())
-        .then(data => {
-          setData(data);  // Atualiza a lista com os dados do backend
-          closeModal();
-        });
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      }).then(data => {
+        setData(prevData => prevData.map(item => item.id === modalData.id ? data : item));
+        closeModal();
+      }).catch(error => {
+        console.error('Erro ao atualizar a cerveja:', error);
+      });
     } else {
       const newBeer = {
         marca: modalData.marca,
@@ -79,20 +86,32 @@ const App = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(response => response.json())
-        .then(data => {
-          setData(data);
-          closeModal();
-        });
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      }).then(data => {
+        setData(prevData => [...prevData, data]);
+        closeModal();
+      }).catch(error => {
+        console.error('Erro ao adicionar a cerveja:', error);
+      });
     }
   };
-
+  
   const deleteCerveja = (id) => {
     if (window.confirm('Tem certeza que deseja excluir esta cerveja?')) {
       fetch(`http://localhost:8080/cerveja/${id}`, { method: 'DELETE' })
-        .then(response => response.json())
-        .then(data => {
-          setData(data); // Atualiza a lista após a exclusão
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          // Não tente converter a resposta para JSON, pois DELETE geralmente não retorna um corpo
+          setData(prevData => prevData.filter(item => item.id !== id));
+        })
+        .catch(error => {
+          console.error('Erro ao excluir a cerveja:', error);
         });
     }
   };
