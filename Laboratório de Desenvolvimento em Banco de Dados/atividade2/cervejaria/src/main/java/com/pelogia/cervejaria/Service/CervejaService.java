@@ -29,17 +29,17 @@ public class CervejaService {
 
     public Optional<Cerveja> update(Long id, Cerveja cerveja) {
         return cervejaRepository.findById(id)
-                                .map(existingCerveja -> {
-                                    cerveja.setId(existingCerveja.getId());
-                                    return cervejaRepository.save(cerveja);
-                                });
+            .map(existingCerveja -> {
+                cerveja.setId(existingCerveja.getId());
+                return cervejaRepository.save(cerveja);
+            });
     }
 
     public boolean delete (Long id) {
         return cervejaRepository.findById(id)
-                                .map(cerveja -> {
-                                    cervejaRepository.delete(cerveja);
-                                    return true;
-                                }).orElse(false);
+            .map(cerveja -> {
+                cervejaRepository.delete(cerveja);
+                return true;
+            }).orElse(false);
     }
 }

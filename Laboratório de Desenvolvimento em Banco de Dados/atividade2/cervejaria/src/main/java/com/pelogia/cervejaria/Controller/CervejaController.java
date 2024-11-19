@@ -34,8 +34,8 @@ public class CervejaController {
     @GetMapping("/{id}")
     ResponseEntity<Cerveja> getCervejaByID(@PathVariable Long id){
         return cervejaService.findById(id)
-                             .map(cerveja -> ResponseEntity.ok(cerveja))
-                             .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+            .map(cerveja -> ResponseEntity.ok(cerveja))
+            .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
         }
 
     @PostMapping
@@ -47,15 +47,15 @@ public class CervejaController {
     @PutMapping("/{id}")
     public ResponseEntity<Cerveja> putCerveja(@PathVariable Long id, @RequestBody Cerveja cerveja) {
         return cervejaService.update(id, cerveja)
-                .map(updatedCerveja -> ResponseEntity.ok(updatedCerveja))
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+            .map(updatedCerveja -> ResponseEntity.ok(updatedCerveja))
+            .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCerveja(@PathVariable Long id) {
         if (cervejaService.delete(id)) {
             return ResponseEntity.noContent().build();
-        } else {
+        } else {    
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

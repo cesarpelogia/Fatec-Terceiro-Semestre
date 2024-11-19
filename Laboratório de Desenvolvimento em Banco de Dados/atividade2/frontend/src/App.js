@@ -116,9 +116,13 @@ const App = () => {
     }
   };
 
+  const formatPrice = (price) => {
+    return `R$ ${price.toFixed(2).replace('.', ',')}`;
+  };
+
   return (
     <div className="app-container">
-      <h1 className="title">Tabela de Cervejas</h1>
+      <h1 className="title">Cervejaria Pelogia</h1>
       <button className="add-button" onClick={() => openModal()}>Adicionar Cerveja</button>
 
       {/* Modal */}
@@ -181,7 +185,7 @@ const App = () => {
               <td>{item.marca}</td>
               <td>{item.nome}</td>
               <td>{item.qnt}</td>
-              <td>{item.preco}</td>
+              <td>{formatPrice(item.preco)}</td>
               <td className="actions">
                 <button className="edit-button" onClick={() => openModal(item)}>Editar</button>
                 <button className="delete-button" onClick={() => deleteCerveja(item.id)}>Excluir</button>
