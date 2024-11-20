@@ -16,15 +16,31 @@ void shellSort(vector<int>& arr){ // passando o endereço do vetor para que ele 
     // Tamanho do Array
     int n = arr.size();
 
-    // Para descobrirmos quantas varreduras, precisamos saber o valor de k.
-    // utilizando a formula de Knuth: k = log(n+1)/log(3)
+     
     float k = log(n+1)/log(3);
     
     // Dai vamos precisar arredondar o K.
     k = floor(k+0.5);
 
-    // Agora, vamos calcular o H, que será a distância das varreduras.
+    // Agora, vamos calcular o H, que será a distância das varreduras com a formula de Knuth: h = (3^k - 1)/2
     int h = (pow(3, k) - 1)/2;
 
-
-};
+    // Enquanto H for maior que 0, vamos continuar o loop
+    while (h>0){
+        for(i=0; i<n; i++) {
+            if(arr[i] > arr[i+h]){
+                aux = arr[i];
+                arr[i] = arr[i+h];
+                arr[i+h] = aux;
+                j = i-h;
+                while(j>=0){
+                    if(arr[j]>arr[j+h]){
+                        aux = arr[j];
+                        arr[j] = arr[j+h];
+                        arr[j+h] = aux;
+                        j = j-h;
+                    }
+                }  
+            }
+        }
+    };
