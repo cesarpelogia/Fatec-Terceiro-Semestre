@@ -35,30 +35,24 @@ void shellSort(vector<int>& arr){ // passando o endereço do vetor para que ele 
     // Tamanho do Array
     int n = arr.size();
     
-    // Calcula o valor inicial de k usando o logaritmo base 3
-    float k = log(n + 1) / log(3);
+    // Calcula todos os valores de h usando a sequência de Knuth e armazena em um vetor
+    vector<int> gaps;
+    for (int h = 1; h < n; h = 3 * h + 1) {
+        gaps.push_back(h);
+    }
     
-    // Arredonda k para o inteiro mais próximo
-    k = floor(k + 0.5);
-    
-    // Calcula o valor inicial de h usando a fórmula de Knuth: h = (3^k - 1) / 2
-    int h = (pow(3, k) - 1) / 2;
-
-    // Enquanto h for maior que 0, continuamos o loop
-    while (h > 0) {
-        // Percorremos o vetor
+    // Itera sobre os valores de h em ordem decrescente
+    for (int k = gaps.size() - 1; k >= 0; k--) {
+        int h = gaps[k];
         for (i = h; i < n; i++) {
             aux = arr[i];
             j = i;
-            // Loop para continuar trocando enquanto o valor na posição j for maior que o valor na posição j - h
             while (j >= h && arr[j - h] > aux) {
                 arr[j] = arr[j - h];
                 j -= h;
             }
             arr[j] = aux;
         }
-        // Atualiza o valor de h para a próxima iteração
-        h = (h - 1) / 3;
     }
 };
 
