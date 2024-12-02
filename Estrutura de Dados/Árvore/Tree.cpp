@@ -7,7 +7,7 @@ struct Node {
     Node* right;
     Node* left;
 
-    Node(int val) : value(val), right(nullptr), left(nullptr) {}
+    Node(int value) : value(value), right(nullptr), left(nullptr) {}
 };
 
 struct Tree {
@@ -15,83 +15,120 @@ struct Tree {
 
     Tree() : root(nullptr) {}
 
-    void insert(int val) {
-        root = insertNode(root, val);
+    void insert(int value) {
+        root = insertNode(root, value);
     }
 
-        void printInOrder() {
-        cout << "Percurso In-Order (Em Ordem):" << endl;
-        inOrder(root);
-        cout << endl;
+    Node* search(int searchedValue) {
+        return searchNode(root, searchedValue);
     }
 
-    void printPreOrder() {
-        cout << "Percurso Pre-Order (Pré-Ordem):" << endl;
-        preOrder(root);
-        cout << endl;
+    Node* remove(int value) {
+        root = removeNode(root, value);
+        return root;
     }
 
-    void printPostOrder() {
-        cout << "Percurso Post-Order (Pós-Ordem):" << endl;
-        postOrder(root);
+    void print() {
+        printInOrder(root);
         cout << endl;
     }
 
 private:
-    Node* insertNode(Node* node, int val) {
+
+    Node* insertNode(Node* node, int value) {
         if (node == nullptr) {
-            cout << "Inserindo nó com valor " << val << endl;
-            return new Node(val);
+            cout << "Inserindo nó com valor " << value << endl;
+            return new Node(value);
         }
 
-        if (val < node->value) {
-            cout << "Valor " << val << " é menor que " << node->value << ", indo para a esquerda." << endl;
-            node->left = insertNode(node->left, val);
-        } else if (val > node->value){
-            cout << "Valor " << val << " é maior que " << node->value << ", indo para a direita." << endl;
-            node->right = insertNode(node->right, val);
+        if (value < node->value) {
+            cout << "Valor " << value << " é menor que " << node->value << ", indo para a esquerda." << endl;
+            node->left = insertNode(node->left, value);
+        } else if (value > node->value){
+            cout << "Valor " << value << " é maior que " << node->value << ", indo para a direita." << endl;
+            node->right = insertNode(node->right, value);
         }
         return node;
     }
 
-    void inOrder(Node* node){
-        if (node != nullptr){
-            inOrder(node->left);
-            cout << "Visitando nó com valor: " << node->value << endl;
-            inOrder(node->right);
+    Node* searchNode(Node* root, int searchedValue){
+        if(root == nullptr){
+            cout << "Arvore vazia" << endl;
+            return nullptr;
+        }
+    
+        if(searchedValue == root->value){
+            return root;
+        } else if (searchedValue < root->value) {
+            return searchNode(root->left, searchedValue);
+        } else {
+            return searchNode(root->right, searchedValue);
         }
     }
 
-    void preOrder(Node* node) {
-        if (node != nullptr) {
-            cout << "Visitando nó com valor: " << node->value << endl;
-            preOrder(node->left);
-            preOrder(node->right);
+    Node* removeNode(Node* node, int value) {
+        if (node == nullptr) {
+            cout << "Nó não encontrado" << endl;
+            return node;
         }
+    
+        if (value < node->value) {
+            node->left = removeNode(node->left, value);
+        } else if (value > node->value) {
+            node->right = removeNode(node->right, value);
+        } else {
+            if (node->left == nullptr) {
+                Node* temp = node->right;
+                delete node;
+                return temp;
+            } else if (node->right == nullptr) {
+                Node* temp = node->left;
+                delete node;
+                return temp;
+            }
+    
+            // Encontrar o menor valor na subárvore direita
+            Node* temp = node->right;
+            while (temp->left != nullptr) {
+                temp = temp->left;
+            }
+    
+            // Substituir o valor do nó a ser removido pelo menor valor encontrado
+            node->value = temp->value;
+    
+            // Remover o nó duplicado na subárvore direita
+            node->right = removeNode(node->right, temp->value);
+        }
+        return node;
     }
 
-    void postOrder(Node* node) {
-        if (node != nullptr) {
-            postOrder(node->left);
-            postOrder(node->right);
-            cout << "Visitando nó com valor: " << node->value << endl;
+    void printInOrder(Node* node) {
+        if (node == nullptr) {
+            return;
         }
+        printInOrder(node->left);
+        cout << node->value << " ";
+        printInOrder(node->right);
     }
 };
 
-int main(){
-
-    vector<int> values = {10, 5, 3, 5, 7, 10, 15, 12, 15, 20, 17, 20, 25, 30, 25};
+int main() {
+    vector<int> values = {10, 5, 3, 7, 15, 12, 20, 17, 25, 30};
     
     Tree tree;
 
-    for (int val : values){
+    for (int val : values) {
         tree.insert(val);
     }
-    
-    tree.printInOrder();
-    tree.printPreOrder();
-    tree.printPostOrder();
+
+    cout << "Árvore em ordem: ";
+    tree.print();
+
+    cout << "Removendo o valor 10" << endl;
+    tree.remove(10);
+
+    cout << "Árvore em ordem após remoção: ";
+    tree.print();
 
     return 0;
 }
