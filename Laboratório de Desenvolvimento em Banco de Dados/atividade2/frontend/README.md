@@ -38,8 +38,6 @@ Cadastro de cerveja:
 ![Listagem de Cervejas](../cervejaria/src/main/resources/images/Cervejaria%20-%20Imagem%203.jpg)
 
 ### Atualizar Cerveja
-![Atualizar Cerveja](images/atualizar_cerveja.png)
-
 ![Listagem de Cervejas](../cervejaria/src/main/resources/images/Cervejaria%20-%20Imagem%204.jpg)
 
 ![Listagem de Cervejas](../cervejaria/src/main/resources/images/Cervejaria%20-%20Imagem%205.jpg)

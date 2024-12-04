@@ -1,19 +1,25 @@
-# Metodo Get All
+# Cadastro de Chocolate
 
-![Metodo Get All](prints/Método%20getAll%20-%20Todos%20Elementos.png)
+Esta aplicação é um sistema de cadastro de chocolates desenvolvido em Spring Boot. A aplicação permite realizar operações CRUD (Create, Read, Update, Delete) em uma lista de chocolates. Não possui frontend, sendo acessada e testada via ferramentas como Postman ou similares.
 
-# Metodo Get By Id
+## Métodos Disponíveis
 
-![Metodo GEt By Id](prints/Metodo%20getById%20-%20Seleciona%20elemento%20escolhido..png)
+### Metodo Get All
 
-# Metodo Post
+![Metodo Get All](./Prints/Método%20getAll%20-%20Todos%20Elementos.png)
 
-![Metodo Post](prints/Metodo%20Post%20-%20Adiciona%20elemento%20a%20lista..png)
+### Metodo Get By Id
 
-# Metodo Put
+![Metodo Get By Id](./Prints/Metodo%20getById%20-%20Seleciona%20elemento%20escolhido..png)
 
-![Metodo Put](prints/Método%20Put%20-%20Insere%20elemento%20em%20posição%20específica..png)
+### Metodo Post
 
-# Metodo Delete
+![Metodo Post](./Prints/Metodo%20Post%20-%20Adiciona%20elemento%20a%20lista..png)
 
-![Metodo Delete](prints/Metodo%20Delete%20-%20Deleta%20elemento%20específico..png)
+### Metodo Put
+
+![Metodo Put](./Prints/Método%20Put%20-%20Insere%20elemento%20em%20posição%20específica..png)
+
+### Metodo Delete
+
+![Metodo Delete](./Prints/Metodo%20Delete%20-%20Deleta%20elemento%20específico..png)
