@@ -5,7 +5,7 @@
 
 ### Atividade 1:
  - Rest spring boot com o seu exemplo e testes com postman (ou similar).
- - [Para mais detalhes, clique aqui](atividade1/chocolate/ReadMe)
+ - [Para mais detalhes, clique aqui](atividade1/chocolate/README.md)
 
 ### Atividade 2:
  - Rest spring boot novamente, mas agora com frontend consumindo.
