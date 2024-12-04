@@ -6,7 +6,7 @@ Esta aplicação é um sistema de cadastro de chocolates desenvolvido em Spring 
 
 ### Metodo Get All
 
-![Metodo Get All](../chocolate/src/main/resources/Prints/Método%20GetAll.jpg)
+![Metodo Get All](./src/main/resources/Prints/Método%20GetAll.jpg)
 
 ### Metodo Get By Id
 
