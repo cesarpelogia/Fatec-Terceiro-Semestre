@@ -6,20 +6,20 @@ Esta aplicação é um sistema de cadastro de chocolates desenvolvido em Spring 
 
 ### Metodo Get All
 
-![Metodo Get All](./Prints/Método%20getAll%20-%20Todos%20Elementos.png)
+![Metodo Get All](./Prints/Método%20getAll%20-%20Todos%20Elementos.jpg)
 
 ### Metodo Get By Id
 
-![Metodo Get By Id](./Prints/Metodo%20getById%20-%20Seleciona%20elemento%20escolhido..png)
+![Metodo Get By Id](./Prints/Metodo%20getById%20-%20Seleciona%20elemento%20escolhido..jpg)
 
 ### Metodo Post
 
-![Metodo Post](./Prints/Metodo%20Post%20-%20Adiciona%20elemento%20a%20lista..png)
+![Metodo Post](./Prints/Metodo%20Post%20-%20Adiciona%20elemento%20a%20lista..jpg)
 
 ### Metodo Put
 
-![Metodo Put](./Prints/Método%20Put%20-%20Insere%20elemento%20em%20posição%20específica..png)
+![Metodo Put](./Prints/Método%20Put%20-%20Insere%20elemento%20em%20posição%20específica..jpg)
 
 ### Metodo Delete
 
-![Metodo Delete](./Prints/Metodo%20Delete%20-%20Deleta%20elemento%20específico..png)
+![Metodo Delete](./Prints/Metodo%20Delete%20-%20Deleta%20elemento%20específico..jpg)
