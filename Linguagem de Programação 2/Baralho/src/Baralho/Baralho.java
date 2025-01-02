@@ -1,3 +1,4 @@
+package Baralho;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +19,6 @@ public class Baralho {
                     if (valor != Carta.Valor.CORINGA) {
                         Carta novaCarta = new Carta(valor, naipe);
                         cartas.add(novaCarta);
-                        System.out.println(novaCarta.toString());
                     }
                 }
             }
@@ -27,8 +27,6 @@ public class Baralho {
         for (int i = 0; i < 4; i++) {
             cartas.add(new Carta(Carta.Valor.CORINGA, Carta.Naipe.CORINGA));
         }
-
-        System.out.println("\n");
         return cartas;
     }
     
@@ -44,9 +42,15 @@ public class Baralho {
         System.out.println("\n");
     }
     
-    public void retirarUmCarta(){
-        System.out.println(cartas.get(0));
+    public void retirarUmaCarta() throws BaralhoVazioException {
+        if (cartas.isEmpty()){
+            throw new BaralhoVazioException("Não é possível remover uma carta de um baralho vazio.");
+        }
+        
+        System.out.println("Carta retirada: " + cartas.get(0));
         cartas.remove(0);
+        System.out.println("Total atual: " + cartas.size() + " Cartas");
+        
         
     }
     
@@ -54,7 +58,7 @@ public class Baralho {
         for (int i = 0; i < cartas.size(); i++) {
             System.out.println(cartas.get(i).toString());
         }
-        System.err.println(cartas.size());
+        System.err.println("\nTotal: " + cartas.size() + " Cartas");
         System.out.println("\n");
     }
     
