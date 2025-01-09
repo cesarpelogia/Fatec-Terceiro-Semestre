@@ -1,53 +1,49 @@
 #include <iostream>
 #include <chrono>
 
-
 using namespace std;
-using namespace std::chrono;
+using std::chrono::duration_cast;
+using std::chrono::high_resolution_clock;
+using std::chrono::nanoseconds;
 
-struct Node {
+struct Node
+{
     int value;
-    Node* next;
+    Node *next;
 };
 
-struct StackWithHead {
+struct StackWithHead
+{
 
-    Node* top;
+    Node *top;
 
-    StackWithHead(){
+    StackWithHead()
+    {
         top = nullptr;
     }
 
-    bool isEmpty(){
-        if (top == nullptr){
+    bool isEmpty()
+    {
+        if (top == nullptr)
+        {
             cout << "Pilha vazia" << endl;
             return true;
-        } else {
+        }
+        else
+        {
             cout << "Pilha contém elementos." << endl;
             return false;
         }
     }
 
-    Node* searchNode(int value){
-        Node* current = top;
-        while(current != nullptr){
-            if(current->value == value){
-                cout << "Valor encontrado: " << current->value << endl;
-                return current;
-            }
-            current = current->next;
-        }
-        cout << "Valor não encontrado." << endl;
-        return nullptr;
-    }
+    void addNode(int value)
+    {
 
-    void addNode(int value){
-
-        Node* newNode = new Node();
+        Node *newNode = new Node();
         newNode->value = value;
-        
 
-        if(top == nullptr){
+        if (top == nullptr)
+        {
             newNode->next = nullptr;
             top = newNode;
             cout << "Pilha inicializada com valor: " << value << "." << endl;
@@ -57,33 +53,55 @@ struct StackWithHead {
         newNode->next = top;
         top = newNode;
         cout << "Adicionado nó no topo da pilha com valor: " << value << "." << endl;
+        return;
     }
 
-    Node* removeNode(){
-        if(top == nullptr){
+    Node* removeNode()
+    {
+        if (top == nullptr)
+        {
             cout << "Pilha vazia." << endl;
+            return nullptr;
         }
 
-        Node* nodeToRemove = top;
+        Node *nodeToRemove = top;
         top = top->next;
 
-        return nodeToRemove;
-        
         cout << "Nó removido do topo da pilha." << endl;
+        return nodeToRemove;
     }
-    
-    void peek() {
-        if (top == nullptr) {
+
+    Node* searchNode(int value)
+    {
+        Node *current = top;
+        while (current != nullptr)
+        {
+            if (current->value == value)
+            {
+                cout << "Valor encontrado: " << current->value << endl;
+                return current;
+            }
+            current = current->next;
+        }
+        cout << "Valor não encontrado." << endl;
+        return nullptr;
+    }
+
+    void peek()
+    {
+        if (top == nullptr)
+        {
             cout << "A pilha está vazia." << endl;
-        } else {
+        }
+        else
+        {
             cout << "Valor no topo: " << top->value << endl;
         }
     }
-
-
 };
 
-int main(){
+int main()
+{
 
     StackWithHead stack;
 
@@ -97,19 +115,19 @@ int main(){
 
     // Adição de nó na pilha e medição de tempo
     auto AddNodeStart = high_resolution_clock::now();
-    stack.addNode(10); // Inicializa a pilha com 10
-    stack.addNode(20); // Adiciona o valor 20 no topo
-    stack.addNode(30); // Adiciona o valor 30 no topo
-    stack.addNode(40); // Adiciona o valor 40 no topo
-    stack.addNode(50); // Adiciona o valor 50 no topo
-    stack.addNode(60); // Adiciona o valor 60 no topo
-    stack.addNode(70); // Adiciona o valor 70 no topo
-    stack.addNode(80); // Adiciona o valor 80 no topo
-    stack.addNode(90); // Adiciona o valor 90 no topo
+    stack.addNode(10);  // Inicializa a pilha com 10
+    stack.addNode(20);  // Adiciona o valor 20 no topo
+    stack.addNode(30);  // Adiciona o valor 30 no topo
+    stack.addNode(40);  // Adiciona o valor 40 no topo
+    stack.addNode(50);  // Adiciona o valor 50 no topo
+    stack.addNode(60);  // Adiciona o valor 60 no topo
+    stack.addNode(70);  // Adiciona o valor 70 no topo
+    stack.addNode(80);  // Adiciona o valor 80 no topo
+    stack.addNode(90);  // Adiciona o valor 90 no topo
     stack.addNode(100); // Adiciona o valor 100 no topo
     auto AddNodeEnd = high_resolution_clock::now();
-    auto AddNodeDuration = duration_cast<nanoseconds>((AddNodeEnd - AddNodeStart)/10);
-    cout << "Tempo de execução da adição por nó na pilha: " << AddNodeDuration.count() << " microssegundos" << endl;
+    auto AddNodeDuration = duration_cast<nanoseconds>((AddNodeEnd - AddNodeStart) / 10);
+    cout << "Tempo de execução da adição por nó na pilha: " << AddNodeDuration.count() << " nanosegundos" << endl;
     cout << "" << endl;
 
     // Primeira verificação do topo da pilha e medição de tempo
@@ -122,14 +140,14 @@ int main(){
 
     // Remoção nó na pilha e medição de tempo
     auto RemoveNodeStart = high_resolution_clock::now();
-    Node* node1 = stack.removeNode();
+    Node *node1 = stack.removeNode();
     auto RemoveNodeEnd = high_resolution_clock::now();
     cout << "Nó removido: " << node1->value << endl;
     auto RemoveNodeDuration = duration_cast<nanoseconds>(RemoveNodeEnd - RemoveNodeStart);
     cout << "Tempo de execução da remoção de nó na pilha: " << RemoveNodeDuration.count() << " nanosegundos" << endl;
     cout << "" << endl;
 
-     // Segunda verificação do topo da pilha e medição de tempo
+    // Segunda verificação do topo da pilha e medição de tempo
     auto PeekStart2 = high_resolution_clock::now();
     stack.peek();
     auto PeekEnd2 = high_resolution_clock::now();
